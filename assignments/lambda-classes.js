@@ -1,5 +1,6 @@
 // CODE here for your Lambda Classes
 
+//Person: parent class
 class Person {
   constructor(attributes) {
     this.name = attributes.name;
@@ -11,6 +12,7 @@ class Person {
   }
 }
 
+//Instructor: child of Person
 class Instructor extends Person {
   constructor(attributes) {
     super(attributes);
@@ -18,31 +20,40 @@ class Instructor extends Person {
     this.favLanguage = attributes.favLanguage;
     this.catchPhrase = attributes.catchPhrase;
   }
+
   demo(subject) {
     console.log(`Today we are learning about ${subject}`);
   }
+
   grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
+
+  //stretch
   changeGrade(student) {
     let value = Math.floor(Math.random() * 100) + 1;
     console.log(student.grades + value);
   }
 }
 
+//Student: child of Person
 class Student extends Person {
   constructor(attributes) {
     super(attributes);
     this.previousBackground = attributes.previousBackground;
     this.className = attributes.className;
     this.favSubjects = attributes.favSubjects;
+
+    //stretch
     this.grades = attributes.grades;
   }
+
   listsSubjects() {
     this.favSubjects.forEach(function(item) {
       console.log(item);
     });
   }
+
   PRAssignment(subject) {
     console.log(`${this.name} has submitted a PR for ${subject}`);
   }
@@ -60,6 +71,7 @@ class Student extends Person {
   }
 }
 
+//ProjectManager: child of Instructor
 class ProjectManager extends Instructor {
   constructor(attributes) {
     super(attributes);
@@ -80,10 +92,14 @@ class ProjectManager extends Instructor {
   }
 }
 
+//new Person, Jon
 const jon = new Person({ name: 'Jon', age: 25, location: 'Poughkeepsie' });
+
+//tests for Jon
 console.log(jon);
 jon.speak();
 
+//new Student, Pavithra
 const pavithra = new Student({
   name: 'Pavithra',
   age: 29,
@@ -93,12 +109,17 @@ const pavithra = new Student({
   favSubjects: ['HTML', 'CSS', 'JavaScript', 'Python'],
   grades: 80
 });
+
+//tests for Pavithra
 console.log(pavithra);
 pavithra.listsSubjects();
 pavithra.PRAssignment('JavaScript');
 pavithra.sprintChallenge('JavaScript');
+
+//stretch
 console.log(pavithra.grades);
 
+//new Instructor, Sally
 const sally = new Instructor({
   name: 'Sally',
   age: 37,
@@ -107,11 +128,17 @@ const sally = new Instructor({
   favLanguage: 'JavaScript',
   catchPhrase: `JavaScript? More like LavaScript! Cause it's hot! ...right guys?`
 });
+
+//tests for Sally
 console.log(sally);
 sally.demo('LavaScript');
 sally.grade(pavithra, 'JavaScript');
+
+//stretch
 sally.changeGrade(pavithra);
 pavithra.graduate();
+
+//new ProjectManager, Sato
 const sato = new ProjectManager({
   name: 'Sato',
   age: 40,
@@ -122,6 +149,8 @@ const sato = new ProjectManager({
   gradClassName: 'Web42',
   favInstructor: 'Sally'
 });
+
+//tests for Sato
 console.log(sato);
 sato.standUp('webpt7_sato');
 sato.debugsCode(pavithra, 'CSS');
